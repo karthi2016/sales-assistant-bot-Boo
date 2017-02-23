@@ -12,5 +12,5 @@ hi [Bobby](name)
 please add [xyz](company_name) to the clients list
 * add/client
 
-< new [client](company_name) added
+< new client added
 * client_add/confirm

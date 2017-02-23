@@ -96,7 +96,6 @@ exports.handle = (client) => {
       .then(function(res) {
         //assuming some data structure on res
         var companies = res.data
-        console.log('-------------------',companies)
         if (companies.length < 1) {
           client.addTextResponse('You dumbnutz this company does not exist go get a hint about life');
           client.done();
