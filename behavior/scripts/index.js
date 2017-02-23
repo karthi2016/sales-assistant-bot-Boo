@@ -190,7 +190,7 @@ exports.handle = (client) => {
       thanks: 'welcome'
 
     },
-
+//Streams
     streams: {
       goodbye: handleGoodbye,
       greeting: handleGreeting,
