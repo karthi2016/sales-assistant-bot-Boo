@@ -269,6 +269,101 @@ exports.handle = (client) => {
       3. Inser the expense by POST /companies/:id/expenses or POST /expenses {companyId: 1, amount: 100}
       4. Respond with a confirmation
       */
+      const checkGoalAmount = client.createStep({
+          extractInfo() {
+              let amount = client.getFirstEntityWithRole(client.getMessagePart(), 'amount_of_money')
+
+              if (amount) {
+                  client.updateConversationState({Amount: amount.value})
+
+                  console.log('User wants to insert company:', amount.value)
+              }
+          },
+          satisfied() {
+              return Boolean(client.getConversationState().Amount)
+          },
+
+          prompt() {
+              client.addResponse('client_goal/ask_amount')
+              client.expect(client.getStreamName(), ['amount_response'])
+              client.done()
+          }
+
+      })
+      const checkGoalStartDate = client.createStep({
+          extractInfo() {
+              let startDate = client.getFirstEntityWithRole(client.getMessagePart(), 'date')
+
+              if (startDate) {
+                  client.updateConversationState({startDate: startDate.value})
+
+                  console.log('User wants to insert new start date:', startDate.value)
+              }
+          },
+          satisfied() {
+              return Boolean(client.getConversationState().startDate)
+          },
+
+          prompt() {
+              client.addResponse('client_goal/start_date')
+              client.expect(client.getStreamName(), ['start_date_response'])
+              client.done()
+          }
+      })
+      const checkGoalEndDate = client.createStep({
+          extractInfo() {
+              let endDate = client.getFirstEntityWithRole(client.getMessagePart(), 'date')
+
+              if (endDate) {
+                  client.updateConversationState({endDate: endDate.value})
+
+                  console.log('User wants to insert new end date:', endDate.value)
+              }
+          },
+          satisfied() {
+              return Boolean(client.getConversationState().endDate)
+          },
+
+          prompt() {
+              client.addResponse('client_goal/end_date')
+              client.expect(client.getStreamName(), ['end_date_response'])
+              client.done()
+          }
+
+      })
+      const handleGoalConfirmation = client.createStep({
+          satisfied() {
+              return false
+          },
+          prompt() {
+              const amount = client.getConversationState().Amount;
+              const startDate = client.getConversationState().startDate
+              const endDate = client.getConversationState().endDate;
+
+                axios.post(`${hostName}/expenses?companyId=${companyID}`, {
+                          amount: amount,
+                          startDate: startDate,
+                          endDate: endDate
+                      })
+                      client.addResponse('client_goal/confirmation', {
+                          company_name: company,
+                          amount_of_money: amount
+                      })
+                      client.updateConversationState({companyName: null, Amount: null})
+                      client.done()
+                  }
+              })
+              // if (companies.length > 1)
+              // {
+              //   //make button selection
+              // }
+                  .catch(err => {
+                  client.addTextResponse('Something went wrong you Dummy');
+                  client.done()
+              })
+          }
+      })
+
 
       //REQUEST TOTAL SALES
     const handleSaleTile = client.createStep({
@@ -333,10 +428,10 @@ exports.handle = (client) => {
             return false
         },
         prompt(next) {
-            var expenses = axios.get(`${hostName}/reports?totalExpenses`)
+             axios.get(`${hostName}/reports?totalExpenses`)
             .then(function(res) {
-              console.log(res)
-                client.addTextResponse(`Your total expenses are ${res}`)
+              var expenses = res.data.Total_Expenses
+                client.addTextResponse(`Your total expenses are ${expenses}`)
                 client.done()
             })
         }
