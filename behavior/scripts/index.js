@@ -142,7 +142,9 @@ exports.handle = (client) => {
             const amount = client.getConversationState().Amount;
             console.log('-----------', company)
             console.log('+++++++++++', amount)
-            axios.get(`${hostName}/company?name=${company}`).then(function(res) {
+            axios.get(`${hostName}/company?name=${company}`)
+            .then(function(res) {
+              console.log(res)
                 //assuming some data structure on res
                 var companies = res.data
                 if (companies.length < 1) {
@@ -169,6 +171,7 @@ exports.handle = (client) => {
                     // reply saying there are too many results
                 }
             }).catch(err => {
+                console.log(err)
                 client.addTextResponse('Something went wrong you Dummy');
                 client.done()
             })
@@ -216,14 +219,15 @@ exports.handle = (client) => {
 
     })
     const handleExpenseConfirmation = client.createStep({
-
         satisfied() {
             return false
         },
         prompt() {
             const company = client.getConversationState().companyName;
             const amount = client.getConversationState().Amount;
-            axios.get(`${hostName}/company?name=${company}`).then(function(res) {
+            //COMPARING THE NAME WE RETRIEVE FROM BOT WITH DATABASE TO GET CUTSOMER_ID
+            axios.get(`${hostName}/company?name=${company}`)
+            .then(function(res) {
                 //assuming some data structure on res
                 var companies = res.data
                 console.log(companies)
@@ -233,6 +237,7 @@ exports.handle = (client) => {
                 }
                 if (companies.length === 1) {
                     var companyID = companies[0].id
+                    //SENDING EXTRACTED DATA TO THE DATABASE
                     axios.post(`${hostName}/expenses?companyId=${companyID}`, {
                         customer_id: companyID,
                         amount: amount
@@ -264,63 +269,74 @@ exports.handle = (client) => {
       3. Inser the expense by POST /companies/:id/expenses or POST /expenses {companyId: 1, amount: 100}
       4. Respond with a confirmation
       */
-    const handleSaleTile = client.createStep({
 
+      //REQUEST TOTAL SALES
+    const handleSaleTile = client.createStep({
         satisfied() {
             return false
         },
-        prompt() {
-            var sales = axios.get(`${hostName}/reports?totalRev`).then(function(res) {
+        prompt(next) {
+            axios.get(`${hostName}/reports?totalRev`)
+            .then(function(res) {
+              var sales = res.data.Total_Sales;
                 client.addTextResponse(`Your total sales are ${sales}`)
                 client.done()
             })
+            .catch(err => console.log(err))
         }
     })
+    //REQUEST MARGIN
     const handleMarginTile = client.createStep({
-
         satisfied() {
             return false
-        }
-        prompt() {
-            var margin = axios.get(`${hostName}/reports?grossProfitMargin`).then(function(res) {
+        },
+        prompt(next) {
+            var margin = axios.get(`${hostName}/reports?grossProfitMargin`)
+            .then(function(res) {
+                var margin = res.data.Gross_Profit_Margin_Percent
                 client.addTextResponse(`Your profit margin is ${margin}`)
                 client.done()
             })
         }
     })
-
+  //REQUEST PROFITS
     const handleProfitTile = client.createStep({
-
         satisfied() {
             return false
-        }
-        prompt() {
-            var profit = axios.get(`${hostName}/reports?profits`).then(function(res) {
+        },
+        prompt(next) {
+            axios.get(`${hostName}/reports?profits`)
+            .then(function(res) {
+                var profit = res.data.Profit
                 client.addTextResponse(`Your total profits are ${profit}`)
                 client.done()
             })
         }
     })
+    //REQUEST AVERAGE DEAL SIZE
     const handleADSTile = client.createStep({
-
         satisfied() {
             return false
-        }
-        prompt() {
-            var ads = axios.get(`${hostName}/reports?totalRev`).then(function(res) {
+        },
+        prompt(next) {
+            var ads = axios.get(`${hostName}/reports?avgDealSize`)
+            .then(function(res) {
+              var ads = res.data.Avg_Sale_Amount
                 client.addTextResponse(`Your ADS is ${ads}`)
                 client.done()
             })
         }
     })
+    //REQUEST EXPENSES
     const handleExpenseTile = client.createStep({
-
         satisfied() {
             return false
-        }
-        prompt() {
-            var expenses = axios.get(`${hostName}/reports?totalexpenses`).then(function(res) {
-                client.addTextResponse(`Your total expenses are ${expenses}`)
+        },
+        prompt(next) {
+            var expenses = axios.get(`${hostName}/reports?totalExpenses`)
+            .then(function(res) {
+              console.log(res)
+                client.addTextResponse(`Your total expenses are ${res}`)
                 client.done()
             })
         }
@@ -344,13 +360,12 @@ client.runFlow({
         "add/client": 'clientAdd',
         "client/sale": 'clientSale',
         "client/expense": 'clientExpense',
-        thanks: 'welcome'
-        request_sale_tile: 'requestSales'
-        request_margin_tile:'requestMargin'
-        request_profit_tile:'requestProfit'
-        request_ads_tile:'requestAds'
+        thanks: 'welcome',
+        request_sales_tile: 'requestSales',
+        request_margin_tile:'requestMargin',
+        request_profit_tile:'requestProfit',
+        request_ads_tile:'requestAds',
         request_expense_tile:'requestExpense'
-
     },
     //Streams
     streams: {
@@ -369,11 +384,11 @@ client.runFlow({
         main: 'onboarding',
         onboarding: [sayHello],
         end: [untrained],
-        requestSale: handleSaleTile,
-        requestMargin: handleExpenseTile,
+        requestSales: handleSaleTile,
+        requestMargin: handleMarginTile,
         requestProfit: handleProfitTile,
         requestAds: handleADSTile,
-        requestExpense: handleExpenseTile,
+        requestExpense: handleExpenseTile
     }
 })
 }
