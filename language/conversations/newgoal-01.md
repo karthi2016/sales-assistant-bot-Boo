@@ -15,14 +15,14 @@ i want to add a new goal.
 < when should this goal start?
 * client_goal/start_date
 
-[December 1st 2017](date)
+[December 1st 2017](date_start)
 * start_date_response
 
 < and when should it end?
 * client_goal/end_date
 
-[December 31st 2017](date)
+[December 31st 2017](date_end)
 * end_date_response
 
-< new goal for [10000](amount_of_money)$ has been added starting [December 1st 2017](date), ending [December 31st 2017](date).
+< new goal for [10000](amount_of_money)$ has been added starting [December 1st 2017](date_start), ending [December 31st 2017](date_end).
 * client_goal/confirmation
