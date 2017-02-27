@@ -12,5 +12,5 @@ Hi
 bye
 * goodbye
 
-< see you later
+< See you later
 * goodbye

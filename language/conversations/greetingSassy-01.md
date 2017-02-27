@@ -6,11 +6,11 @@ timestamp: 2017-02-20T16:05:53.484266839-05:00
 hi
 * greeting
 
-< Hey Boo!
+< Hey man,
 * greeting
 
 later
 * goodbye
 
-< See you later Boo
+< Later
 * goodbye

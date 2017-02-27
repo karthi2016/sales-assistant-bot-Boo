@@ -12,7 +12,7 @@ i want to add a new goal.
 [10000](amount_of_money)$
 * amount_response
 
-< when should this goal start?
+< When should this goal start?
 * client_goal/start_date
 
 [December 1st 2017](date_start)
@@ -24,5 +24,5 @@ i want to add a new goal.
 [December 31st 2017](date_end)
 * end_date_response
 
-< new goal for [10000](amount_of_money)$ has been added starting [December 1st 2017](date_start), ending [December 31st 2017](date_end).
+< New goal for [10000](amount_of_money)$ has been added starting [December 1st 2017](date_start), ending [December 31st 2017](date_end).
 * client_goal/confirmation

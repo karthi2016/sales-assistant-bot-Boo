@@ -3,14 +3,14 @@ title: newclient-01
 timestamp: 2017-02-20T15:01:02.039320875-05:00
 ---
 
-hi [Bobby](name)
+hi
 * greeting
 
-< hello
+< Hello
 * greeting
 
 please add [xyz](company_name) to the clients list
 * add/client
 
-< new client added
+< New client has been added
 * client_add/confirm

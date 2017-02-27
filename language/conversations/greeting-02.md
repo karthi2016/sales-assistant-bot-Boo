@@ -12,5 +12,5 @@ Hey there
 goodbye
 * goodbye
 
-bye
+Bye
 * goodbye

@@ -6,8 +6,8 @@ timestamp: 2017-02-23T19:40:33.408263-05:00
 hey i just spent [500$](amount_of_money)
 * client/expense
 
-< Ok. For which company should I insert this expense???
+< Ok. Which company should I add this expense to?
 * client_expense/ask_company
 
-it was for [decodemtl](company_name)
+add it to [decodemtl](company_name)
 * company_response

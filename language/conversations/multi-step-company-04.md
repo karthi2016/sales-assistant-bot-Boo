@@ -3,11 +3,11 @@ title: multi-step-company-04
 timestamp: 2017-02-23T20:11:55.708107856-05:00
 ---
 
-good news. got a new client
+i signed a new client today.
 * add/client
 
-< Cool story bro. Whats the name of the company?
+< Well done, what is the new comapny's name?
 * add_client/ask_company
 
-It is [google](company_name)
+Its [google](company_name)
 * company_response
