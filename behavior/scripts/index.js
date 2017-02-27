@@ -80,7 +80,7 @@ exports.handle = (client) => {
 
         prompt(next) {
             const company = client.getConversationState().companyName
-            console.log('+++++++++', company)
+
             axios.post(`${hostName}/company`, {name: company}).then(result => {
                 client.addResponse('client_add/confirm', {company_name: company})
                 client.updateConversationState({companyName: null})
@@ -140,10 +140,9 @@ exports.handle = (client) => {
         prompt(next) {
             const company = client.getConversationState().companyName;
             const amount = client.getConversationState().Amount;
-            console.log('-----------', company)
-            console.log('+++++++++++', amount)
+
             axios.get(`${hostName}/company?name=${company}`).then(function(res) {
-                console.log(res)
+
                 //assuming some data structure on res
                 var companies = res.data
                 if (companies.length < 1) {
@@ -162,12 +161,12 @@ exports.handle = (client) => {
                         })
                         client.updateConversationState({companyName: null, Amount: null})
                         client.done()
+                    }).catch(err => {
+                        console.log(err)
+                        client.addTextResponse('Something went wrong you Dummy');
+                        client.done()
                     })
-
-            }).catch(err => {
-                console.log(err)
-                client.addTextResponse('Something went wrong you Dummy');
-                client.done()
+                }
             })
         }
     })
@@ -198,7 +197,7 @@ exports.handle = (client) => {
             if (amount) {
                 client.updateConversationState({Amount: amount.value})
 
-                console.log('User wants to insert company:', amount.value)
+                console.log('User wants to insert amount:', amount.value)
             }
         },
         satisfied() {
@@ -242,8 +241,7 @@ exports.handle = (client) => {
                     client.updateConversationState({companyName: null, Amount: null})
                     client.done()
                 }
-            })
-                .catch(err => {
+            }).catch(err => {
                 client.addTextResponse('Something went wrong you Dummy');
                 client.done()
             })
@@ -333,11 +331,10 @@ exports.handle = (client) => {
                 date_start: startDate,
                 date_end: endDate
             })
-            console.log('+++++++++++++', amount, startDate, endDate)
             client.addResponse('client_goal/confirmation', {
-              amount_of_money: amount,
-              date_start: startDate,
-              date_end: endDate
+                amount_of_money: amount,
+                date_start: startDate,
+                date_end: endDate
             })
             client.updateConversationState({Amount: null, startDate: null, endDate: null})
             client.done()
