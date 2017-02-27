@@ -163,12 +163,7 @@ exports.handle = (client) => {
                         client.updateConversationState({companyName: null, Amount: null})
                         client.done()
                     })
-                    // else if (companies.length <= 3) {
-                    //   // do buttons WE WILL DO THIS LATER
-                    // }
-                } else {
-                    // reply saying there are too many results
-                }
+
             }).catch(err => {
                 console.log(err)
                 client.addTextResponse('Something went wrong you Dummy');
@@ -248,10 +243,6 @@ exports.handle = (client) => {
                     client.done()
                 }
             })
-            // if (companies.length > 1)
-            // {
-            //   //make button selection
-            // }
                 .catch(err => {
                 client.addTextResponse('Something went wrong you Dummy');
                 client.done()
@@ -344,9 +335,9 @@ exports.handle = (client) => {
             })
             console.log('+++++++++++++', amount, startDate, endDate)
             client.addResponse('client_goal/confirmation', {
-                Amount: amount,
-                startDate: startDate,
-                endDate: endDate
+              amount_of_money: amount,
+              date_start: startDate,
+              date_end: endDate
             })
             client.updateConversationState({Amount: null, startDate: null, endDate: null})
             client.done()

@@ -24,5 +24,5 @@ the [15th of january 2017](time/date-start)
 [18th of february 2017](time/date-end)
 * end_date_response
 
-< I have added a new goal of [10000](amount_of_money) starting [15th of january 2017](time/date-start) and ending [18th of february 2017](time/date-end).
+< I have added a new goal of [10000](amount_of_money) starting [15th of january 2017](date_start) and ending [18th of february 2017](date_end).
 * client_goal/confirmation

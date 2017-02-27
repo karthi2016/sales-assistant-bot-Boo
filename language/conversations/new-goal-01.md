@@ -24,5 +24,5 @@ i want to add a new goal.
 [December 31st 2017](time/date-end)
 * end_date_response
 
-< I have added a new goal of [10000](amount_of_money) starting [December 1st 2017](time/date-start) and ending [December 31st 2017](time/date-end).
+< I have added a new goal of [10000](amount_of_money) starting [December 1st 2017](date_start) and ending [December 31st 2017](date_end).
 * client_goal/confirmation
