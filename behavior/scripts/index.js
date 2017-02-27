@@ -274,7 +274,7 @@ exports.handle = (client) => {
             if (amount) {
                 client.updateConversationState({Amount: amount.value})
 
-                console.log('User wants to insert company:', amount.value)
+                console.log('User wants to insert amount:', amount.value)
             }
         },
         satisfied() {
@@ -290,12 +290,11 @@ exports.handle = (client) => {
     })
     const checkGoalStartDate = client.createStep({
         extractInfo() {
-            let startDate = client.getFirstEntityWithRole(client.getMessagePart(), 'date_start')
-
+            let startDate = client.getEntities(client.getMessagePart(), 'time/date-start')
             if (startDate) {
-                client.updateConversationState({startDate: startDate.value})
+                client.updateConversationState({startDate: startDate.generic[0].parsed.results[0].value.value})
 
-                console.log('User wants to insert new start date:', startDate.value)
+                console.log('User wants to insert new start date:', startDate.generic[0].parsed.results[0].value.value)
             }
         },
         satisfied() {
@@ -310,12 +309,12 @@ exports.handle = (client) => {
     })
     const checkGoalEndDate = client.createStep({
         extractInfo() {
-            let endDate = client.getFirstEntityWithRole(client.getMessagePart(), 'date_end')
+            let endDate = client.getEntities(client.getMessagePart(), 'time/date-end')
 
             if (endDate) {
-                client.updateConversationState({endDate: endDate.value})
+                client.updateConversationState({endDate: endDate.generic[0].parsed.results[0].value.value})
 
-                console.log('User wants to insert new end date:', endDate.value)
+                console.log('User wants to insert new end date:', endDate.generic[0].parsed.results[0].value.value)
             }
         },
         satisfied() {
@@ -339,17 +338,17 @@ exports.handle = (client) => {
             const endDate = client.getConversationState().endDate;
 
             axios.post(`${hostName}/goals`, {
-                amount: amount,
-                startDate: startDate,
-                endDate: endDate
-            })
-            console.log('+++++++++++++', amount, startDate, endDate)
-            client.addResponse('client_goal/confirmation', {
                 amount_of_money: amount,
                 date_start: startDate,
                 date_end: endDate
             })
-            client.updateConversationState({Amount: null, date_start: null, date_end: null})
+            console.log('+++++++++++++', amount, startDate, endDate)
+            client.addResponse('client_goal/confirmation', {
+                Amount: amount,
+                startDate: startDate,
+                endDate: endDate
+            })
+            client.updateConversationState({Amount: null, startDate: null, endDate: null})
             client.done()
 
         }

@@ -15,11 +15,14 @@ i have a new goal
 < Great. Now can you tell me the start date for this goal?
 * client_goal/start_date
 
-the [15th of january 2017](date_start)
+the [15th of january 2017](time/date-start)
 * start_date_response
 
 < Ok. Now the end date?
 * client_goal/end_date
 
-[february 18th of 2017](date_end)
+[18th of february 2017](time/date-end)
 * end_date_response
+
+< I have added a new goal of [10000](amount_of_money) starting [15th of january 2017](time/date-start) and ending [18th of february 2017](time/date-end).
+* client_goal/confirmation
