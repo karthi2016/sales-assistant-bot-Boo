@@ -1,5 +1,10 @@
 # Boo
 
+The goal of this BOT is to extract key information from the conversation with the user and send this information to the back-end of our project.
+
+We use an NPM library called Axios to do the http request from our server.
+
+Our BOT was integrated with Facebook Messenger.
 ## Development
 
 See the [Quickstart](http://docs.init.ai/docs/quickstart) for details on setting up your development environment
