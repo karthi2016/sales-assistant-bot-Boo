@@ -35,4 +35,7 @@ $ npm i
 $ npm start
 ```
 
-![kitten](image/screen1)
+##
+* [Randy Klose](https://github.com/Randyklose)
+* [Joseph Melanson](https://github.com/joemelanson)
+* [Anthony Desormeau](https://github.com/ajdez)
