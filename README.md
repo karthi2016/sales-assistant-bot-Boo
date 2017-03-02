@@ -34,3 +34,5 @@ $ npm i
 ```bash
 $ npm start
 ```
+
+![kitten](image/screen1)
