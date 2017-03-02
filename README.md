@@ -35,7 +35,14 @@ $ npm i
 $ npm start
 ```
 
-##
+
+## Examples
+![pic1](screenshots/pic1)
+![pic2](screenshots/pic2)
+![pic3](screenshots/pic3)
+![pic4](screenshots/pic4)
+
+## Authors
 * [Randy Klose](https://github.com/Randyklose)
 * [Joseph Melanson](https://github.com/joemelanson)
 * [Anthony Desormeau](https://github.com/ajdez)
