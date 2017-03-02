@@ -37,10 +37,10 @@ $ npm start
 
 
 ## Examples
-![pic1](screenshots/pic1)
-![pic2](screenshots/pic2)
-![pic3](screenshots/pic3)
-![pic4](screenshots/pic4)
+![pic1](screenshots/pic1.png)
+![pic2](screenshots/pic2.png)
+![pic3](screenshots/pic3.png)
+![pic4](screenshots/pic4.png)
 
 ## Authors
 * [Randy Klose](https://github.com/Randyklose)
