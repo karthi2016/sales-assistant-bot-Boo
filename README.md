@@ -5,6 +5,10 @@ The goal of this BOT is to extract key information from the conversation with th
 We use an NPM library called Axios to do the http request from our server.
 
 Our BOT was integrated with Facebook Messenger.
+## Demo
+* Click link below to see demo presentation of the Sales Bot Project
+* [Sales Bot Demo](https://www.youtube.com/watch?v=KC0GPHN8mYs)
+
 ## Development
 
 See the [Quickstart](http://docs.init.ai/docs/quickstart) for details on setting up your development environment
